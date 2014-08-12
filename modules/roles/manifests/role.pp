@@ -19,4 +19,9 @@ define roles::role(
     ensure  => file,
     content => "${roleName}\n"
   }
+
+  # compare old role from facter with new role
+  if $::role != $roleName {
+    warning("Changing role from '${::role}' to '${roleName}'.  You probably should run Puppet again.")
+  }
 }
